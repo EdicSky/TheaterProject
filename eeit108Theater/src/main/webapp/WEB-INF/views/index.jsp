@@ -243,13 +243,11 @@ table {
 <body class="homepage is-preload">
 	<div id="page-wrapper">
 
-		<div id="header">
+		<div class="container1" id="header">
 			<!-- header -->
 			<jsp:include page="header.jsp" />
-	 			<div class="header1 inner" id="lion" style="margin-top:-150px;">	<!-- class="inner" id="lion"-->
-				<header >
-					<img src="images/frontend/mgmwhitelionlogo.png">
-				</header>
+	 			<div class="inner" id="lion" style="margin-top:-100px;" >	<!-- class="header1 inner" id="lion"-->
+					<img src="images/frontend/mgmwhitelionlogo.png" class="image featured">
 				</div>
 		</div>
 		

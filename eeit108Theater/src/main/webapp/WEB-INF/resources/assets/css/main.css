@@ -1989,7 +1989,8 @@ body.homepage.is-preload #header:after {
 }
 
 #lion lion {
-	display: inline-block;
+	display: block;     /*display: inline-block;*/
+	width: 100%;
 }
 
 body.homepage #lion:after {
@@ -2014,6 +2015,43 @@ body.homepage #lion:after {
 
 body.homepage.is-preload #lion:after {
 	opacity: 1;
+}
+
+.container1 {
+	margin: 0 auto;
+	max-width: 100%;
+	width: auto;
+/* 	width: auto;      */
+}
+
+@media screen and (max-width: 1680px) {
+	.container1 {
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 1280px) {
+	.container1 {
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 960px) {
+	.container1 {
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 840px) {
+	.container1 {
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 736px) {
+	.container1 {
+		width: 100%;
+	}
 }
 
 /* /* logo */
@@ -2453,6 +2491,44 @@ body.homepage.is-preload #lion:after {
 
 /* Normal */
 @media screen and (max-width: 1280px) {
+	/* Basic */
+	body, input, textarea, select {
+		font-size: 12pt;
+		line-height: 1.5em;
+	}
+
+	/* Wrapper */
+	.wrapper {
+		padding-left: 2em;
+		padding-right: 2em;
+	}
+
+	/* Header */
+	#header {
+		background-attachment: scroll;
+		background-size: cover;
+		/* 				調整手機板*/
+	}
+	#header .inner {
+		padding-left: 2em;
+		padding-right: 2em;
+	}
+
+	/* Banner */
+	#banner {
+		padding-left: 2em;
+		padding-right: 2em;
+	}
+
+	/* Footer */
+	#footer {
+		padding-left: 2em;
+		padding-right: 2em;
+	}
+}
+
+/* new CSS for Lion */
+@media screen and (max-width: 960px) {
 	/* Basic */
 	body, input, textarea, select {
 		font-size: 12pt;
