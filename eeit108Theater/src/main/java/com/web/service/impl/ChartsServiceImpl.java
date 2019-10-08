@@ -17,10 +17,15 @@ import com.web.dao.BulletinDao;
 import com.web.dao.EmployeeDao;
 import com.web.dao.MemberDao;
 import com.web.dao.MovieDao;
+import com.web.dao.OrderDao;
+import com.web.dao.OrderItemDao;
 import com.web.entity.BulletinBean;
 import com.web.entity.EmployeeBean;
 import com.web.entity.MemberBean;
 import com.web.entity.MovieBean;
+import com.web.entity.OrderBean;
+import com.web.entity.OrderItemBean;
+import com.web.entity.SeatBean;
 import com.web.service.ChartsService;
 
 @Service
@@ -33,6 +38,10 @@ public class ChartsServiceImpl implements ChartsService {
 	EmployeeDao employeeDao;
 	@Autowired
 	MovieDao movieDao;
+	@Autowired
+	OrderDao orderDao;
+	@Autowired
+	OrderItemDao orderItemDao;
 
 	@Override
 	@Transactional
@@ -76,6 +85,34 @@ public class ChartsServiceImpl implements ChartsService {
 		return moviePerMoon;
 	}
 
+	@Override
+	@Transactional
+	public List<Double> getOrderPerMoon(String date) {
+		Map<String, Date> map = changeDate(date);
+		Date firstDate = map.get("min");
+		Date lastDate = map.get("max");
+		List<Double> moviePerMoon = orderDao.getOrderPerMoon(firstDate, lastDate);
+		return moviePerMoon;
+	}
+
+	@Override
+	@Transactional
+	public Integer getAllFood() {
+		return orderItemDao.getAllFood();
+	}
+
+	@Override
+	@Transactional
+	public Integer getAllDrink() {
+		return orderItemDao.getAllDrink();
+	}
+
+	@Override
+	@Transactional
+	public Integer getAllTicket() {
+		return orderItemDao.getAllTicket();
+	}
+
 	// ActualMaximum Day
 	public Map<String, Date> changeDate(String date) {
 		System.out.println("changeDate");
@@ -101,6 +138,18 @@ public class ChartsServiceImpl implements ChartsService {
 		map.put("min", firstDate);
 		map.put("max", lastDate);
 		return map;
+	}
+
+	@SuppressWarnings("unused")
+	private void cancelLazy(OrderBean ob) {
+		List<OrderItemBean> oiList = ob.getOrderItems();
+		if (oiList != null)
+			for (OrderItemBean oib : oiList)
+				oib.getAvailable();
+		List<SeatBean> sList = ob.getSeats();
+		if (sList != null)
+			for (SeatBean sb : sList)
+				sb.getAvailable();
 	}
 
 }

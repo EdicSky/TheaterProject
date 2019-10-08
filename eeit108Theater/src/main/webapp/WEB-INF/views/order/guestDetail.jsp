@@ -104,16 +104,7 @@
 										<a>未取票</a>
 									</h4>
 
-								</div>
-								<div class="col-4" style="opacity: 0.5">
-									<a class="image fit checked"><img src="<c:url value='/images/frontend/pickup.png'/>" title="已取票" /></a>
-								</div>
-								<div class="col-8" id="done" style="opacity: 0.5">
-									<br />
-									<h4>
-										<a class="checked">已取票</a>
-									</h4>
-								</div>								
+								</div>				
 							</div>						
 						</section>
 					</div>
@@ -164,7 +155,7 @@
 																<img src="<c:url value='/images/frontend/icontime.png'/>" class="iconimg" />場次：${order.timeTable.startDate} ${order.timeTable.startTime}
 															</p>
 															<p>
-																<img src="<c:url value='/images/frontend/iconpeople.png'/>" class="iconimg" style="width: 25px; height: 25px;" />人數：${order.seatCnt} <c:out value="${order.seatsString}"/>
+																<img src="<c:url value='/images/frontend/iconpeople.png'/>" class="iconimg" style="width: 25px; height: 25px;" />人數：${order.seatCnt} <c:out value="(${order.seatsString})"/>
 															</p>
 															<p>
 																<img src="<c:url value='/images/frontend/iconmeal.png'/>" class="iconimg" /> 票種及餐點：

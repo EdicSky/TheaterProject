@@ -47,6 +47,9 @@ public class ChartsController {
 		Chart2jsp movie = moviePerMoon(session);
 		list.add(movie);
 
+		Chart2jsp order = orderPerMoon(session);
+		list.add(order);
+
 		session.setAttribute("chart2jsp", list);
 		session.setAttribute("updatedTime", new Date());
 		return Root + "charts";
@@ -413,6 +416,83 @@ public class ChartsController {
 		chart2jsp.setFou(Fou);
 
 		chart2jsp.setStr1("電影");
+
+		return chart2jsp;
+	}
+
+//	orderPerMoon
+	public Chart2jsp orderPerMoon(HttpSession session) {
+		// 格式2019-11
+		System.out.println("orderPerMoon");
+		List<ChartContainer> orderPerMoon = new ArrayList<>();
+		String inputValue = null, inputKey = null;
+
+		ChartContainer t1 = new ChartContainer();
+		ChartContainer t2 = new ChartContainer();
+		ChartContainer t3 = new ChartContainer();
+
+		List<Integer> totalCountList = new ArrayList<>();
+		ChartContainer totalCount = new ChartContainer();
+
+		for (Integer i = moonStart; i < moonEnd; i++) {
+			if (i < 10) {
+				inputValue = yearStart + "-0" + i;
+				inputKey = yearStart + "年0" + i + "月";
+			} else if (10 <= i && i < 13) {
+				inputValue = yearStart + "-" + i;
+				inputKey = yearStart + "年" + i + "月";
+			} else if (i >= 13) {
+				int q = i - 12;
+				if (q < 10) {
+					inputValue = yearStart + 1 + "-0" + q;
+					inputKey = yearStart + 1 + "年0" + q + "月";
+				} else {
+					inputValue = yearStart + 1 + "-" + q;
+					inputKey = yearStart + 1 + "年" + q + "月";
+				}
+			}
+			// 取回
+			System.out.println("inputValue=" + inputValue);
+			List<Double> totalPrice = service.getOrderPerMoon(inputValue);
+			// 讀取
+			Integer iob = 0, b = 0;
+			for (Double ob : totalPrice) {
+				iob = (Integer) ob.intValue();
+				totalCount.setCount(iob);
+				b += iob;
+			}
+			ChartContainer orderCount = new ChartContainer();
+			orderCount.setChartMap(inputKey, b);
+			orderPerMoon.add(orderCount);
+			totalCountList.add(totalCount.getCount());
+
+			System.out.println("inputKey=" + inputKey);
+			System.out.println("銷售額=" + b);
+		}
+		Integer type1 = service.getAllTicket();
+		Integer type2 = service.getAllFood();
+		Integer type3 = service.getAllDrink();
+		t1.setCount(type1);
+		t2.setCount(type2);
+		t3.setCount(type3);
+
+		Chart2jsp chart2jsp = new Chart2jsp();
+		chart2jsp.setIncreasePerMoon(orderPerMoon);
+		chart2jsp.setNumberPerMoon(totalCountList);
+
+		ChartContainer Fir = new ChartContainer();
+		Fir.setChartMap("ticket", t1.getCount());
+		chart2jsp.setFir(Fir);
+
+		ChartContainer Sec = new ChartContainer();
+		Sec.setChartMap("food", t2.getCount());
+		chart2jsp.setSec(Sec);
+
+		ChartContainer Thi = new ChartContainer();
+		Thi.setChartMap("drink", t3.getCount());
+		chart2jsp.setThi(Thi);
+
+		chart2jsp.setStr1("銷售額");
 
 		return chart2jsp;
 	}

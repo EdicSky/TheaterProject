@@ -15,4 +15,12 @@ public interface ChartsService {
 	List<EmployeeBean> getEmployeePerMoon(String date);
 
 	List<MovieBean> getMoviePerMoon(String date);
+
+	List<Double> getOrderPerMoon(String date);
+
+	public Integer getAllFood();
+
+	public Integer getAllDrink();
+
+	public Integer getAllTicket();
 }

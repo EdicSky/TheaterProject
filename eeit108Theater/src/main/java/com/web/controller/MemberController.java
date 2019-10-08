@@ -115,7 +115,7 @@ public class MemberController {
 				service.save(memberBean);
 				service.emailValidate(memberBean, request);
 			} catch (Exception e) {
-				redirectAttributes.addFlashAttribute("error", "註冊失敗，該身分證已經有人使用，或是未輸入必須欄位");
+				redirectAttributes.addFlashAttribute("error", "註冊失敗，該身分證已經有人使用");
 				return "redirect:/memberservice";
 
 			}
@@ -123,7 +123,7 @@ public class MemberController {
 			redirectAttributes.addFlashAttribute("welcome", "註冊成功，請至信箱收信認證");
 			return "redirect:/memberservice";
 		} else {
-			redirectAttributes.addFlashAttribute("error", "註冊失敗，該信箱已經有人使用，或是未輸入必須欄位");
+			redirectAttributes.addFlashAttribute("error", "註冊失敗，該信箱已經有人使用");
 			return "redirect:/memberservice";
 		}
 	}
@@ -313,9 +313,11 @@ public class MemberController {
 		System.out.println("Modal login end");
 		if (errMsg.isEmpty()) {
 			response.setStatus(Response.SC_RESET_CONTENT);
+			
 			return "order/start";
 		} else {
 			model.addAttribute("errMsg", errMsg);
+			
 			return "order/loginModalForm";
 		}
 	}
